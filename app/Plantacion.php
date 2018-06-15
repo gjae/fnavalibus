@@ -31,7 +31,7 @@ class Plantacion extends Model
     }
 
     public function medida(){
-    	return $this->belongsTo('App\UnidadMedida');
+    	return $this->belongsTo('App\UnidadMedida', 'unidad_medida_id');
     }
 
     public function detalles(){

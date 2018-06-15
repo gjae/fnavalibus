@@ -20,4 +20,8 @@ class Inventario extends Model
     public function movimientos(){
     	return $this->hasMany('App\MovimientoInventario');
     }
+
+    public function usados_en_patio(){
+        return $this->hasMany('App\DetalleEstructura', 'inventario_id');
+    }
 }

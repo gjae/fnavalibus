@@ -24,4 +24,12 @@ class DetalleEstructura extends Model
 		return $this->belongsTo('App\Plantacion');
 	}
 
+	public function inventario(){
+		return $this->belongsTo('App\Inventario', 'inventario_id');
+	}
+
+	public function medida(){
+		return $this->belongsTo('App\UnidadMedida', 'unidad_medida_id');
+	}
+
 }

@@ -48,7 +48,7 @@ class MovimientosInventarioController extends Controller
     public function store(Request $request)
     {
         $user = Auth::user();
-        if( $user->tipo_usuario == 'ADMIN' || $user->tipo_usuario == 'INVENTARIO' ){
+        if( $user->tipo_usuario == 'ADMIN' || $user->tipo_usuario == 'INVENTARIO' ){    
             $movimiento = MI::create($request->except(['_token', '_method', 'item']));
             if( $movimiento )
                 return redirect()->to( url('dashboard/movimientos?item='.$request->inventario_id) )

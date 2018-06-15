@@ -35,7 +35,7 @@
                         			</div>
                         			<div class="col-2">
                         				<label for="">Cantidad</label>
-                        				<input type="number" required="" class="form-control" name="cantidad" id="cantidad" >
+                        				<input type="text" required="" class="form-control" name="cantidad" id="cantidad" >
                         			</div>
                         		</div>
                         		<div class="form-row">
@@ -49,7 +49,7 @@
                         			</div>
                         			<div class="col-4">
                         				<label for="">Costo (SOLO SI GENERO COSTO)</label>
-                        				<input type="text" required="" class="form-control" name="cantidad" id="cantidad" >
+                        				<input type="text" data-mask="000000000.00" data-mask-reverse="true" class="form-control" name="costo_movimiento" id="costo_movimiento" >
                         			</div>
                         		</div>
                         		<br>
@@ -83,6 +83,7 @@
     <script src="{{ asset('assets/js/lib/data-table/buttons.print.min.js') }}"></script>
     <script src="{{ asset('assets/js/lib/data-table/buttons.colVis.min.js') }}"></script>
     <script src="{{ asset('assets/js/lib/data-table/datatables-init.js') }}"></script>
+    <script src="{{ asset('js/jquery.mask.min.js') }}"></script>
     <script type="text/javascript">
         $(document).ready(function() {
           $('#bootstrap-data-table-export').DataTable();

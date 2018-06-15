@@ -22,38 +22,37 @@
                         <div class="card-body">
                         	<div class="container">
 	                        	<div class="row">
-	                        		<a href="{{ url('dashboard/patios/create') }}" class="btn btn-success">NUEVO</a>
+	                        		<a href="{{ url('dashboard/plantaciones/create?reserva='.request()->reserva ) }}" class="btn btn-success">NUEVO</a>
 	                        	</div>
                         	</div>
-		                  <table id="bootstrap-data-table" class="table table-striped table-bordered">
+		                  <table id="bootstrap-data-table" align="center" class="table table-striped table-bordered">
 		                    <thead>
-		                    	<tr>
+		                    	<tr align="center">
 		                    		<th>ID #</th>
-		                    		<th>DESCRIPCION</th>
-		                    		<th>TIPO</th>
-		                    		<th>EN MERCADO</th>
+		                    		<th>ETIQUETA</th>
+		                    		<th>FECHA DE INICIALIZACION</th>
+		                    		<th>FECHA DE FINALIZACION</th>
 		                    		<th>MEDIDA</th>
+                                    <th>PRODUCCION APROX.</th>
 		                    		<th>OPCIONES</th>
 		                    	</tr>
 		                    </thead>
 		                    <tbody>
-		                    	@foreach(App\Reserva::all() as $reserva)
-									<tr>
-										<td>{{ $reserva->id }}</td>
-										<td>{{ $reserva->descripcion }}</td>
-										<td>{{ $reserva->tipo->descripcion }}</td>
-										<td>{{ number_format($reserva->costo_rubro_mercado, 2, ',', '.') }}</td>
-										<td>{{ $reserva->medida->codigo }}</td>
+		                    	@foreach(App\Plantacion::all() as $plantacion)
+									<tr align="center">
+										<td>{{ $plantacion->id }}</td>
+										<td>{{ $plantacion->etiqueta }}</td>
+										<td>{{ $plantacion->fecha_inicio->format('d-m-Y') }}</td>
+                                        <td>{{ $plantacion->fecha_aprox_fin->format('d-m-Y') }}</td>
+										<td>{{ $plantacion->medida->codigo }}</td>
+                                        <td>{{ $plantacion->produce_aprox }}</td>
 										<td>
-											<a href="{{ url('dashboard/patios/'.$reserva->id.'/edit') }}" class="btn btn-sm btn-warning">
-												<i class="fa fa-edit"></i>
-											</a>
-											<button href="{{ url('dashboard/patios/'.$reserva->id) }}" onclick="eliminar(event, this)" id="eliminar" class="btn btn-sm btn-danger">
+											<button href="{{ url('dashboard/patios/'.$plantacion->id) }}" onclick="eliminar(event, this)" id="eliminar" class="btn btn-sm btn-danger">
 												<i class="fa fa-trash-o"></i>
 											</button>
-                                            <a href="{{ url('dashboard/plantaciones?reserva='.$reserva->id) }}" class="btn btn-primary btn-sm">
-                                                <i class="fa fa-asterisk"></i>
-                                            </a>
+                                            <button class="btn btn-primary btn-sm" id="printer" plantacion-id="{{ $plantacion->id }}">
+                                                <i class="fa fa-print"></i>
+                                            </button>
 										</td>
 									</tr>
 		                    	@endforeach
@@ -83,8 +82,12 @@
     <script src="{{ asset('assets/js/lib/data-table/datatables-init.js') }}"></script>
     <script type="text/javascript">
         $(document).ready(function() {
-          $('#bootstrap-data-table-export').DataTable();
-
+              $('#bootstrap-data-table-export').DataTable();
+              $("#printer").one('click', function(){
+                    let plantacion = $(this).attr('plantacion-id');
+                    var url = "http://"+location.host+"/dashboard/plantaciones/"+plantacion;
+                    window.open(url, '' ,'width=800,height=900')
+              });
         } );
 
         function eliminar(e, btn){
